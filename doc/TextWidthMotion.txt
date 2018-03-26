@@ -6,7 +6,6 @@ description			|TextWidthMotion-description|
 usage				|TextWidthMotion-usage|
 installation			|TextWidthMotion-installation|
 configuration			|TextWidthMotion-configuration|
-integration			|TextWidthMotion-integration|
 limitations			|TextWidthMotion-limitations|
 known problems			|TextWidthMotion-known-problems|
 todo				|TextWidthMotion-todo|
@@ -15,18 +14,17 @@ history				|TextWidthMotion-history|
 ==============================================================================
 DESCRIPTION					 *TextWidthMotion-description*
 
-This plugin ...
+Many coding styles advocate a maximum line length; ASCII art uses a fixed text
+width to represent diagrams and drawings with text. Vim has the 'textwidth'
+setting, and can display a column guide with 'colorcolumn' to support that.
+However, in order to locate lines that do not adhere to some width
+requirements, one has to visually look out for them while scrolling, or use
+searches with special width atoms.
 
-HOW IT WORKS								     *
-
-SOURCE									     *
-(Original Vim tip, Stack Overflow answer, ...)
-
-SEE ALSO								     *
-(Plugins offering complementary functionality, or plugins using this library.)
-
-RELATED WORKS								     *
-(Alternatives from other authors, other approaches, references not used here.)
+This plugin provides mappings to jump to the next line that is shorter or
+longer than a certain width. The base width is conveniently taken from Vim
+options like 'colorcolumn' or 'textwidth', but can also be custom set, or even
+passed as a [count].
 
 ==============================================================================
 USAGE						       *TextWidthMotion-usage*
@@ -44,12 +42,11 @@ USAGE						       *TextWidthMotion-usage*
 			- 'colorcolumn' (first value if multiple are defined)
 			- 'textwidth'
 
-EXAMPLE						     *TextWidthMotion-example*
-
 ==============================================================================
 INSTALLATION					*TextWidthMotion-installation*
 
-The code is hosted in a Git repo at https://github.com/inkarkat/vim-TextWidthMotion
+The code is hosted in a Git repo at
+    https://github.com/inkarkat/vim-TextWidthMotion
 You can use your favorite plugin manager, or "git clone" into a directory used
 for Vim |packages|. Stable releases are on the "master" branch, the latest
 unstable snapshot on "develop".
@@ -71,11 +68,23 @@ DEPENDENCIES					*TextWidthMotion-dependencies*
 CONFIGURATION				       *TextWidthMotion-configuration*
 
 For a permanent configuration, put the following commands into your |vimrc|:
-configvar
+			   *g:TextWidthMotion_Width* *b:TextWidthMotion_Width*
+Overrides the default base width determined from either 'colorcolumn' or
+'textwidth', either globally or just for the current buffer: >
+    let g:TextWidthMotion_Width = 42
+Can still be overridden with a [count].
+					    *g:TextWidthMotion_CountThreshold*
+A [count] given before the motion that is equal or larger than the threshold
+is interpreted as a custom width to search for, instead of jumping to the
+[count]'th next occurrence. >
+    let g:TextWidthMotion_CountThreshold = 10
+<
 						       *TextWidthMotion-remap*
-plugmap
-==============================================================================
-INTEGRATION					 *TextWidthMotion-integration*
+To change the default motion mappings, use: >
+    let g:TextWidthMotion_LongerMapping = '>'
+    let g:TextWidthMotion_ShorterMapping = '<'
+To also change the [ / ] prefix to something else, follow the instructions for
+|CountJump-remap-motions|.
 
 ==============================================================================
 LIMITATIONS					 *TextWidthMotion-limitations*
@@ -89,7 +98,8 @@ IDEAS						       *TextWidthMotion-ideas*
 CONTRIBUTING					  *TextWidthMotion-contribute*
 
 Report any bugs, send patches, or suggest features via the issue tracker at
-https://github.com/inkarkat/vim-TextWidthMotion/issues or email (address below).
+https://github.com/inkarkat/vim-TextWidthMotion/issues or email (address
+below).
 
 ==============================================================================
 HISTORY						     *TextWidthMotion-history*
