@@ -4,7 +4,7 @@
 "   - CountJump/Motion.vim autoload script
 "   - TextWidthMotion.vim autoload script
 "
-" Copyright: (C) 2018 Ingo Karkat
+" Copyright: (C) 2018-2019 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
@@ -29,6 +29,8 @@ endif
 
 
 "- mappings --------------------------------------------------------------------
+
+if v:version < 702 | runtime autoload/TextWidthMotion.vim | endif  " The Funcref doesn't trigger the autoload in older Vim versions.
 
 call CountJump#Motion#MakeBracketMotionWithJumpFunctions('', g:TextWidthMotion_LongerMapping, '',
 \   function('TextWidthMotion#LongerForward'),
